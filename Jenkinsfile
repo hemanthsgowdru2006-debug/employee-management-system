@@ -13,20 +13,22 @@ pipeline {
             }
         }
 
-        stage('Run Python Tests') {
-            agent {
-                docker {
-                    image 'python:3.12-slim'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    python -m pip install --no-cache-dir -r requirements.txt
-                    python -m pytest -q
-                '''
-            }
+        
+stage('Run Python Tests') {
+    agent {
+        docker {
+            image 'python:3.12-slim'
+            reuseNode true
+            args '-e HOME=/tmp'
         }
+    }
+    steps {
+        sh '''
+            python -m pip install --no-cache-dir --user -r requirements.txt
+            python -m pytest -q
+        '''
+    }
+}
 
         stage('Build Docker Image') {
             steps {
