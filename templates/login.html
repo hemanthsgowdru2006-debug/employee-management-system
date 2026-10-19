@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Admin Login · EmployeeHub{% endblock %}{% block content %}
+<div class="login-wrap"><div class="login-card shadow-sm"><div class="brand-mark">EH</div><p class="eyebrow">EMPLOYEE MANAGEMENT</p>
+<h1 class="h3 fw-bold">Welcome back</h1><p class="text-secondary mb-4">Sign in to manage your team.</p>
+<form method="post"><div class="mb-3"><label class="form-label">Username</label><input class="form-control form-control-lg" name="username" required autocomplete="username"></div>
+<div class="mb-4"><label class="form-label">Password</label><input class="form-control form-control-lg" type="password" name="password" required autocomplete="current-password"></div>
+<button class="btn btn-primary btn-lg w-100">Sign in</button></form><p class="small text-secondary mt-3">Demo credentials are in README.md.</p></div></div>{% endblock %}

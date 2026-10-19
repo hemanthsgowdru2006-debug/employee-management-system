@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Dashboard · EmployeeHub{% endblock %}{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"><div><p class="eyebrow mb-1">OVERVIEW</p><h1 class="h2 fw-bold">Dashboard</h1><p class="text-secondary">Here's what's happening with your team.</p></div>
+<a class="btn btn-primary" href="{{ url_for('employee_form') }}">+ Add employee</a></div>
+<div class="row g-3 mb-4"><div class="col-md-6"><div class="stat-card"><div class="stat-icon">👥</div><p class="text-secondary">Total employees</p><div class="display-6 fw-bold">{{ employee_count }}</div></div></div>
+<div class="col-md-6"><div class="stat-card"><div class="stat-icon">▦</div><p class="text-secondary">Departments</p><div class="display-6 fw-bold">{{ department_count }}</div></div></div></div>
+<div class="panel"><div class="d-flex justify-content-between mb-3"><h2 class="h5 fw-bold">Recently added employees</h2><a href="{{ url_for('employees') }}">View all →</a></div>
+{% if latest_employees %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Name</th><th>Designation</th><th>Department</th><th>Email</th></tr></thead><tbody>
+{% for e in latest_employees %}<tr><td class="fw-semibold">{{ e.name }}</td><td>{{ e.designation or '—' }}</td><td>{{ e.department.name if e.department else '—' }}</td><td>{{ e.email }}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="empty-state"><div class="fs-1">👋</div><h3 class="h5">Your team starts here</h3><p class="text-secondary">Add your first employee to populate this dashboard.</p><a class="btn btn-primary" href="{{ url_for('employee_form') }}">Add first employee</a></div>{% endif %}</div>{% endblock %}
