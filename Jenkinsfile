@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'YOUR_DOCKERHUB_USERNAME/employee-management'
+        DOCKER_IMAGE = 'hemanth05632/employee-management'
     }
 
     stages {
@@ -14,13 +14,16 @@ pipeline {
         }
 
         stage('Run Python Tests') {
+            agent {
+                docker {
+                    image 'python:3.12-slim'
+                    reuseNode true
+                }
+            }
             steps {
                 sh '''
-                    docker run --rm \
-                      -v "$WORKSPACE:/app" \
-                      -w /app \
-                      python:3.12-slim \
-                      sh -c "pip install --no-cache-dir -r requirements.txt pytest && pytest -q"
+                    python -m pip install --no-cache-dir -r requirements.txt
+                    python -m pytest -q
                 '''
             }
         }
